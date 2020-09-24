@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+
+  # boilerplate app
+  boilerplate:
+    build: app
+    container_name: boilerplate-app
+    image: blueground/boilerplate:${BOILERPLATE_SRC_VERSION:-latest}
+    env_file: docker.env
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+      - 8008:8008
+  # Postgres db
+  postgres:
+    image: bitnami/postgresql:11
+    container_name: postgres
+    env_file: docker.env
+    ports:
+      - 5432:5432
